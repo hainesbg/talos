@@ -10,80 +10,82 @@ ARG INSTALLER_ARCH
 
 # Resolve package images using ${PKGS} to be used later in COPY --from=.
 
-FROM ghcr.io/talos-systems/fhs:${PKGS} AS pkg-fhs
-FROM ghcr.io/talos-systems/ca-certificates:${PKGS} AS pkg-ca-certificates
+FROM ghcr.io/hainesbg/fhs:${PKGS} AS pkg-fhs
+FROM ghcr.io/hainesbg/ca-certificates:${PKGS} AS pkg-ca-certificates
 
-FROM --platform=amd64 ghcr.io/talos-systems/cryptsetup:${PKGS} AS pkg-cryptsetup-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/cryptsetup:${PKGS} AS pkg-cryptsetup-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/cryptsetup:${PKGS} AS pkg-cryptsetup-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/cryptsetup:${PKGS} AS pkg-cryptsetup-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/containerd:${PKGS} AS pkg-containerd-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/containerd:${PKGS} AS pkg-containerd-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/containerd:${PKGS} AS pkg-containerd-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/containerd:${PKGS} AS pkg-containerd-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/dosfstools:${PKGS} AS pkg-dosfstools-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/dosfstools:${PKGS} AS pkg-dosfstools-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/dosfstools:${PKGS} AS pkg-dosfstools-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/dosfstools:${PKGS} AS pkg-dosfstools-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/eudev:${PKGS} AS pkg-eudev-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/eudev:${PKGS} AS pkg-eudev-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/eudev:${PKGS} AS pkg-eudev-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/eudev:${PKGS} AS pkg-eudev-arm64
 
-FROM ghcr.io/talos-systems/grub:${PKGS} AS pkg-grub
-FROM --platform=amd64 ghcr.io/talos-systems/grub:${PKGS} AS pkg-grub-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/grub:${PKGS} AS pkg-grub-arm64
+FROM ghcr.io/hainesbg/grub:${PKGS} AS pkg-grub
+FROM --platform=amd64 ghcr.io/hainesbg/grub:${PKGS} AS pkg-grub-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/grub:${PKGS} AS pkg-grub-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/iptables:${PKGS} AS pkg-iptables-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/iptables:${PKGS} AS pkg-iptables-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/iptables:${PKGS} AS pkg-iptables-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/iptables:${PKGS} AS pkg-iptables-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/libjson-c:${PKGS} AS pkg-libjson-c-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/libjson-c:${PKGS} AS pkg-libjson-c-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/libjson-c:${PKGS} AS pkg-libjson-c-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/libjson-c:${PKGS} AS pkg-libjson-c-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/libpopt:${PKGS} AS pkg-libpopt-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/libpopt:${PKGS} AS pkg-libpopt-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/libpopt:${PKGS} AS pkg-libpopt-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/libpopt:${PKGS} AS pkg-libpopt-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/libressl:${PKGS} AS pkg-libressl-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/libressl:${PKGS} AS pkg-libressl-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/libressl:${PKGS} AS pkg-libressl-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/libressl:${PKGS} AS pkg-libressl-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/libseccomp:${PKGS} AS pkg-libseccomp-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/libseccomp:${PKGS} AS pkg-libseccomp-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/libseccomp:${PKGS} AS pkg-libseccomp-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/libseccomp:${PKGS} AS pkg-libseccomp-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/linux-firmware:${PKGS} AS pkg-linux-firmware-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/linux-firmware:${PKGS} AS pkg-linux-firmware-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/linux-firmware:${PKGS} AS pkg-linux-firmware-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/linux-firmware:${PKGS} AS pkg-linux-firmware-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/lvm2:${PKGS} AS pkg-lvm2-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/lvm2:${PKGS} AS pkg-lvm2-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/lvm2:${PKGS} AS pkg-lvm2-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/lvm2:${PKGS} AS pkg-lvm2-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/libaio:${PKGS} AS pkg-libaio-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/libaio:${PKGS} AS pkg-libaio-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/libaio:${PKGS} AS pkg-libaio-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/libaio:${PKGS} AS pkg-libaio-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/musl:${PKGS} AS pkg-musl-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/musl:${PKGS} AS pkg-musl-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/musl:${PKGS} AS pkg-musl-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/musl:${PKGS} AS pkg-musl-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/open-iscsi:${PKGS} AS pkg-open-iscsi-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/open-iscsi:${PKGS} AS pkg-open-iscsi-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/open-iscsi:${PKGS} AS pkg-open-iscsi-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/open-iscsi:${PKGS} AS pkg-open-iscsi-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/open-isns:${PKGS} AS pkg-open-isns-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/open-isns:${PKGS} AS pkg-open-isns-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/open-isns:${PKGS} AS pkg-open-isns-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/open-isns:${PKGS} AS pkg-open-isns-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/runc:${PKGS} AS pkg-runc-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/runc:${PKGS} AS pkg-runc-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/runc:${PKGS} AS pkg-runc-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/runc:${PKGS} AS pkg-runc-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/xfsprogs:${PKGS} AS pkg-xfsprogs-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/xfsprogs:${PKGS} AS pkg-xfsprogs-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/xfsprogs:${PKGS} AS pkg-xfsprogs-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/xfsprogs:${PKGS} AS pkg-xfsprogs-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/util-linux:${PKGS} AS pkg-util-linux-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/util-linux:${PKGS} AS pkg-util-linux-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/util-linux:${PKGS} AS pkg-util-linux-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/util-linux:${PKGS} AS pkg-util-linux-arm64
 
-FROM --platform=amd64 ghcr.io/talos-systems/kmod:${PKGS} AS pkg-kmod-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/kmod:${PKGS} AS pkg-kmod-arm64
+FROM --platform=amd64 ghcr.io/hainesbg/kmod:${PKGS} AS pkg-kmod-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/kmod:${PKGS} AS pkg-kmod-arm64
 
-FROM ghcr.io/talos-systems/kernel:${PKGS} AS pkg-kernel
-FROM --platform=amd64 ghcr.io/talos-systems/kernel:${PKGS} AS pkg-kernel-amd64
-FROM --platform=arm64 ghcr.io/talos-systems/kernel:${PKGS} AS pkg-kernel-arm64
+FROM ghcr.io/hainesbg/kernel:${PKGS} AS pkg-kernel
+FROM --platform=amd64 ghcr.io/hainesbg/kernel:${PKGS} AS pkg-kernel-amd64
+FROM --platform=arm64 ghcr.io/hainesbg/kernel:${PKGS} AS pkg-kernel-arm64
 
-FROM --platform=arm64 ghcr.io/talos-systems/u-boot:${PKGS} AS pkg-u-boot-arm64
-FROM --platform=arm64 ghcr.io/talos-systems/raspberrypi-firmware:${PKGS} AS pkg-raspberrypi-firmware-arm64
+FROM ghcr.io/hainesbg/nvidia:${PKGS} AS pkg-nvidia-amd64
+
+FROM --platform=arm64 ghcr.io/hainesbg/u-boot:${PKGS} AS pkg-u-boot-arm64
+FROM --platform=arm64 ghcr.io/hainesbg/raspberrypi-firmware:${PKGS} AS pkg-raspberrypi-firmware-arm64
 
 # Resolve package images using ${EXTRAS} to be used later in COPY --from=.
 
-FROM ghcr.io/talos-systems/talosctl-cni-bundle-install:${EXTRAS} AS extras-talosctl-cni-bundle-install
+FROM ghcr.io/hainesbg/talosctl-cni-bundle-install:${EXTRAS} AS extras-talosctl-cni-bundle-install
 
 # The tools target provides base toolchain for the build.
 
@@ -370,6 +372,7 @@ COPY --from=pkg-util-linux-amd64 /lib/libuuid.* /rootfs/lib/
 COPY --from=pkg-util-linux-amd64 /lib/libmount.* /rootfs/lib/
 COPY --from=pkg-kmod-amd64 /usr/lib/libkmod.* /rootfs/lib/
 COPY --from=pkg-kernel-amd64 /lib/modules /rootfs/lib/modules
+COPY --from=pkg-nvidia-amd64 / /rootfs
 COPY --from=machined-build-amd64 /machined /rootfs/sbin/init
 # NB: We run the cleanup step before creating extra directories, files, and
 # symlinks to avoid accidentally cleaning them up.

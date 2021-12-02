@@ -255,7 +255,6 @@ func DropCapabilities(seq runtime.Sequence, data interface{}) (runtime.TaskExecu
 		// but keep them for PID 1.
 		droppedCapabilities := []cap.Value{
 			cap.SYS_BOOT,
-			cap.SYS_MODULE,
 		}
 
 		iab := cap.IABGetProc()
