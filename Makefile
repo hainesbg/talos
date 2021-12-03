@@ -12,8 +12,8 @@ DOCKER_LOGIN_ENABLED ?= true
 NAME = Talos
 
 ARTIFACTS := _out
-TOOLS ?= ghcr.io/hainesbg/tools:v0.9.0-alpha.0-11-g9f29da5
-PKGS ?= v0.9.0-alpha.0-23-g69a8f83
+TOOLS ?= ghcr.io/hainesbg/tools:v0.9.0-alpha.0-13-g3a5218c
+PKGS ?= v0.9.0-alpha.0-26-g35cb51b
 EXTRAS ?= v0.7.0-alpha.0-2-g50fc401
 GO_VERSION ?= 1.17
 GOFUMPT_VERSION ?= v0.1.1
